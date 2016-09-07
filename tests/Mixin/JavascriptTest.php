@@ -19,6 +19,32 @@ use PHPUnit_Framework_TestCase;
  */
 class JavascriptTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        $this->reset(Mocks\TestPrototype::class);
+        $this->reset(Mocks\TestPrototypeWithMethod::class);
+        $this->reset(Mocks\TestPrototypeWithParent::class);
+    }
+
+    /**
+     * Reset target class prototype
+     *
+     * @param string $class
+     */
+    private function reset($class)
+    {
+        $reflectionProperty = new \ReflectionProperty($class, 'prototype');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue(null, null);
+
+        $this->assertAttributeEquals(null, 'prototype', $class);
+    }
+
     /** @group javascript */
     public function testPrototype()
     {
@@ -88,6 +114,24 @@ class JavascriptTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Closure::class, $mock2->prototype()->method);
         $this->assertTrue($mock2->method());
+    }
+
+    /** @group javascript */
+    public function testMagicCallOnStaticallyDefined()
+    {
+        $self = $this;
+
+        Mocks\TestPrototype::prototype()->method = function () use ($self, &$mock) {
+            $self->assertInstanceOf(Mocks\TestPrototype::class, $this);
+            $self->assertSame($mock, $this);
+
+            return true;
+        };
+
+        $mock = new Mocks\TestPrototype();
+
+        $this->assertInstanceOf(Closure::class, $mock->prototype()->method);
+        $this->assertTrue($mock->method());
     }
 
     /** @group javascript */
