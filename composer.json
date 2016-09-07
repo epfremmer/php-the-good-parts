@@ -3,6 +3,16 @@
     "type": "library",
     "description": "Satirical prototypical javascript PHP implementation",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Edward Pfremmer",
+            "email": "edward.pfremmer@nerdery.com"
+        },
+        {
+            "name": "Nate Brunette",
+            "email": "n@tebru.net"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Epfremme\\PHP\\TheGoodParts\\": "src/"
