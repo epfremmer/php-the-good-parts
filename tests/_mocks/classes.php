@@ -18,6 +18,10 @@ class TestClassWithMethod {
     public function test() { return $this; }
 }
 
+class TestPrototypeWithProperty extends TestPrototype {
+    public $property = 'prop';
+}
+
 class TestPrototypeWithMethod extends TestClassWithMethod {
     use Javascript;
 }

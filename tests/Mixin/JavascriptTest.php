@@ -68,6 +68,32 @@ class JavascriptTest extends PHPUnit_Framework_TestCase
     }
 
     /** @group javascript */
+    public function testMagicGetProperty()
+    {
+        $mock = new Mocks\TestPrototypeWithProperty();
+
+        $this->assertEquals('prop', $mock->property);
+    }
+
+    /** @group javascript */
+    public function testMagicGetPrototypeMethod()
+    {
+        $mock = new Mocks\TestPrototype();
+        $mock->prototype()->method = function () {};
+
+        $this->assertTrue(is_callable($mock->method));
+    }
+
+    /** @group javascript */
+    public function testMagicGetMemberConflict()
+    {
+        $mock = new Mocks\TestPrototypeWithProperty();
+        $mock->prototype()->property = function () {};
+
+        $this->assertEquals('prop', $mock->property);
+    }
+
+    /** @group javascript */
     public function testMagicCall()
     {
         $mock = new Mocks\TestPrototype();
@@ -90,7 +116,7 @@ class JavascriptTest extends PHPUnit_Framework_TestCase
         $mock = new Mocks\TestPrototypeWithMethod();
         $self = $this;
 
-        $mock->prototype()->method = function () use ($self) {
+        $mock->prototype()->test = function () use ($self) {
             $self->fail('prototype method called unexpectedly');
         };
 
@@ -135,6 +161,23 @@ class JavascriptTest extends PHPUnit_Framework_TestCase
     }
 
     /** @group javascript */
+    public function testMagicCallWithPrototypeChain()
+    {
+        $parent = new Mocks\TestPrototype();
+        $parent->prototype()->parent_method = function () {
+            return true;
+        };
+
+        $mock = new Mocks\TestPrototypeWithParent();
+        $mock->prototype()->child_method = function () {
+            return 1;
+        };
+
+        $this->assertEquals(1, $mock->child_method());
+        $this->assertTrue($mock->parent_method());
+    }
+
+    /** @group javascript */
     public function testMagicCallMissingMethod()
     {
         $mock = new Mocks\TestPrototype();
@@ -150,22 +193,5 @@ class JavascriptTest extends PHPUnit_Framework_TestCase
 
         $this->expectException(BadMethodCallException::class);
         $mock->missing();
-    }
-
-    /** @group javascript */
-    public function testMagicCallWithPrototypeChain()
-    {
-        $parent = new Mocks\TestPrototype();
-        $parent->prototype()->parent_method = function () {
-            return true;
-        };
-
-        $mock = new Mocks\TestPrototypeWithParent();
-        $mock->prototype()->child_method = function () {
-            return 1;
-        };
-
-        $this->assertEquals(1, $mock->child_method());
-        $this->assertTrue($mock->parent_method());
     }
 }

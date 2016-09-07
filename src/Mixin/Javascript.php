@@ -57,7 +57,11 @@ trait Javascript
      */
     public function __get($name)
     {
-        return PROTO_PROPERTY === $name ? $this->prototype() : $this->$name;
+        if (PROTO_PROPERTY === $name) {
+            return $this->prototype();
+        }
+
+        return isset($this->$name) ? $this->$name : $this->prototype()->$name;
     }
 
     /**
