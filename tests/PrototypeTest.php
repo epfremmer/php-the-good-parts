@@ -21,8 +21,7 @@ class PrototypeTest extends PHPUnit_Framework_TestCase
     /** @gourp prototype */
     public function testMagicSetClosure()
     {
-        $scope = new Mocks\TestClass();
-        $prototype = new Prototype($scope);
+        $prototype = new Prototype();
 
         $prototype->method = function () {};
 
@@ -33,8 +32,7 @@ class PrototypeTest extends PHPUnit_Framework_TestCase
     /** @gourp prototype */
     public function testMagicSetCallable()
     {
-        $scope = new Mocks\TestClass();
-        $prototype = new Prototype($scope);
+        $prototype = new Prototype();
 
         $prototype->method = 'Epfremme\PHP\TheGoodParts\Tests\Mocks\test_callable';
 
@@ -45,8 +43,7 @@ class PrototypeTest extends PHPUnit_Framework_TestCase
     /** @gourp prototype */
     public function testMagicSetNativeCallable()
     {
-        $scope = new Mocks\TestClass();
-        $prototype = new Prototype($scope);
+        $prototype = new Prototype();
 
         $prototype->method = 'array_sum';
 
@@ -57,8 +54,7 @@ class PrototypeTest extends PHPUnit_Framework_TestCase
     /** @gourp prototype */
     public function testMagicSetMethodCallable()
     {
-        $scope = new Mocks\TestClass();
-        $prototype = new Prototype($scope);
+        $prototype = new Prototype();
         $testClass = new Mocks\TestClassWithMethod();
 
         $prototype->method = [$testClass, 'test'];
@@ -70,8 +66,7 @@ class PrototypeTest extends PHPUnit_Framework_TestCase
     /** @gourp prototype */
     public function testMagicGet()
     {
-        $scope = new Mocks\TestClass();
-        $prototype = new Prototype($scope);
+        $prototype = new Prototype();
 
         $self = $this;
 
@@ -86,20 +81,19 @@ class PrototypeTest extends PHPUnit_Framework_TestCase
     /** @gourp prototype */
     public function testMagicGetWithCallable()
     {
-        $scope = new Mocks\TestClassWithMethod();
-        $prototype = new Prototype($scope);
+        $prototype = new Prototype();
+        $testClass = new Mocks\TestClassWithMethod();
 
-        $prototype->method = [$scope, 'test'];
+        $prototype->method = [$testClass, 'test'];
 
         $this->assertInstanceOf(Closure::class, $prototype->method);
-        $this->assertSame($scope, call_user_func($prototype->method));
+        $this->assertSame($testClass, call_user_func($prototype->method));
     }
 
     /** @gourp prototype */
     public function testMagicGetMissing()
     {
-        $scope = new Mocks\TestClass();
-        $prototype = new Prototype($scope);
+        $prototype = new Prototype();
 
         $this->assertNull($prototype->missing);
     }
