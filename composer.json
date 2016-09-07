@@ -1,0 +1,29 @@
+{
+    "name": "epfremme/php-the-good-parts",
+    "type": "library",
+    "description": "Satirical prototypical javascript PHP implementation",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Epfremme\\PHP\\TheGoodParts\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Epfremme\\PHP\\TheGoodParts\\Tests\\": "tests/"
+        },
+        "files": [
+            "tests/_mocks/classes.php"
+        ]
+    },
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "php": ">=5.5",
+        "phpunit/phpunit": "^5.5"
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
