@@ -1,6 +1,9 @@
 # PHP The Good Parts
 
 [![Build Status](https://travis-ci.org/epfremmer/php-the-good-parts.svg?branch=master)](https://travis-ci.org/epfremmer/php-the-good-parts)
+[![Coverage Status](https://coveralls.io/repos/github/epfremmer/php-the-good-parts/badge.svg?branch=master)](https://coveralls.io/github/epfremmer/php-the-good-parts?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/epfremmer/php-the-good-parts/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/epfremmer/php-the-good-parts/?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/b9ae8a24-796c-42c5-a398-8f690e3e0984/mini.png)](https://insight.sensiolabs.com/projects/b9ae8a24-796c-42c5-a398-8f690e3e0984)
 
 Make PHP JavaScript again
 
