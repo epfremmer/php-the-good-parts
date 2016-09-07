@@ -10,7 +10,12 @@ yet, dynamically!
 
 ## Installation
 
-Composer install `composer require epfremme/php-the-good-parts`
+With Composer
+
+```bash
+composer config repositories.epfremme/php-the-good-parts vcs https://github.com/epfremmer/php-the-good-parts.git
+composer require epfremme/php-the-good-parts
+```
 
 ## Examples
 
