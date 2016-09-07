@@ -16,24 +16,9 @@ use Closure;
 class Prototype
 {
     /**
-     * @var object
-     */
-    private $scope;
-
-    /**
      * @var array
      */
     private $methods = [];
-
-    /**
-     * Proto constructor
-     *
-     * @param object $scope
-     */
-    public function __construct($scope)
-    {
-        $this->scope = $scope;
-    }
 
     /**
      * @param string $name
@@ -47,7 +32,7 @@ class Prototype
             };
         }
 
-        $this->methods[$name] = Closure::bind($function, $this->scope, get_class($this->scope));
+        $this->methods[$name] = $function;
     }
 
     /**

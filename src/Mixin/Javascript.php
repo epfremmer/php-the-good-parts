@@ -63,10 +63,10 @@ trait Javascript
     /**
      * @return Prototype
      */
-    public function prototype()
+    public static function prototype()
     {
         if (null === self::$prototype) {
-            self::$prototype = new Prototype($this);
+            self::$prototype = new Prototype();
         }
 
         return self::$prototype;

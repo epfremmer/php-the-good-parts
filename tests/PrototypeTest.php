@@ -19,17 +19,6 @@ use PHPUnit_Framework_TestCase;
 class PrototypeTest extends PHPUnit_Framework_TestCase
 {
     /** @gourp prototype */
-    public function testConstruct()
-    {
-        $scope = new Mocks\TestClass();
-        $prototype = new Prototype($scope);
-
-        $this->assertAttributeSame($scope, 'scope', $prototype);
-        $this->assertAttributeInternalType('array', 'methods', $prototype);
-        $this->assertAttributeEmpty('methods', $prototype);
-    }
-
-    /** @gourp prototype */
     public function testMagicSetClosure()
     {
         $scope = new Mocks\TestClass();
@@ -86,10 +75,7 @@ class PrototypeTest extends PHPUnit_Framework_TestCase
 
         $self = $this;
 
-        $prototype->method = function () use ($self, $scope) {
-            $self->assertInstanceOf(Mocks\TestClass::class, $this);
-            $self->assertSame($scope, $this);
-
+        $prototype->method = function () use ($self) {
             return true;
         };
 

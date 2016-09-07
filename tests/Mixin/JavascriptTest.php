@@ -28,6 +28,12 @@ class JavascriptTest extends PHPUnit_Framework_TestCase
     }
 
     /** @group javascript */
+    public function testStaticPrototype()
+    {
+        $this->assertInstanceOf(Prototype::class, Mocks\TestPrototype::prototype());
+    }
+
+    /** @group javascript */
     public function testMagicGet()
     {
         $mock = new Mocks\TestPrototype();
