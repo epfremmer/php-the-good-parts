@@ -6,7 +6,7 @@ Make PHP JavaScript again
 
 Adds support for JavaScript like prototypes on PHP classes. Now you can define prototypical methods on your PHP classes
 just like the magic of JavaScript. No more concrete class definitions! Now you can simply define that at runtime, or better
-yet completely dynamically!
+yet, dynamically!
 
 ## Installation
 
