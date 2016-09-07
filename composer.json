@@ -21,7 +21,8 @@
     },
     "require-dev": {
         "php": ">=5.5",
-        "phpunit/phpunit": "^5.5"
+        "phpunit/phpunit": "^5.5",
+        "satooshi/php-coveralls": "^1.0"
     },
     "config": {
         "bin-dir": "bin"
