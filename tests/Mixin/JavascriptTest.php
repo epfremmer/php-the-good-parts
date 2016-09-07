@@ -177,21 +177,23 @@ class JavascriptTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($mock->parent_method());
     }
 
-    /** @group javascript */
+    /**
+     * @expectedException \BadMethodCallException
+     * @group javascript
+     */
     public function testMagicCallMissingMethod()
     {
         $mock = new Mocks\TestPrototype();
-
-        $this->expectException(BadMethodCallException::class);
         $mock->missing();
     }
 
-    /** @group javascript */
+    /**
+     * @expectedException \BadMethodCallException
+     * @group javascript
+     */
     public function testMagicCallMissingMethodWithPrototypeChain()
     {
         $mock = new Mocks\TestPrototypeWithParent();
-
-        $this->expectException(BadMethodCallException::class);
         $mock->missing();
     }
 }
