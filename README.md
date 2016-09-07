@@ -1,5 +1,7 @@
 # PHP The Good Parts
 
+[![Build Status](https://travis-ci.org/epfremmer/php-the-good-parts.svg?branch=master)](https://travis-ci.org/epfremmer/php-the-good-parts)
+
 Make PHP JavaScript again
 
 ## Overview
