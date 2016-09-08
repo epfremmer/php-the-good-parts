@@ -22,6 +22,11 @@ class TestPrototypeWithProperty extends TestPrototype {
     public $property = 'prop';
 }
 
+class TestPrototypeWithPrivateMembers extends TestPrototype {
+    private $property = 'prop';
+    private function test() { return $this; }
+}
+
 class TestPrototypeWithMethod extends TestClassWithMethod {
     use Javascript;
 }

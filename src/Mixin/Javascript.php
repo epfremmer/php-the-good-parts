@@ -6,6 +6,7 @@
  */
 namespace Epfremme\PHP\TheGoodParts\Mixin;
 
+use Closure;
 use Epfremme\PHP\TheGoodParts\Prototype;
 
 const PROTO_PROPERTY = 'prototype';
@@ -23,6 +24,11 @@ trait Javascript
     private static $prototype;
 
     /**
+     * Call missing concrete class method
+     *
+     * Used to search the prototype chain for a defined prototype method
+     * and invoke it as the class instance
+     *
      * @param string $name
      * @param array $arguments
      * @return mixed
@@ -32,26 +38,34 @@ trait Javascript
         $prototype = $this->prototype();
 
         if (is_callable($prototype->$name)) {
-            return call_user_func_array($prototype->$name->bindTo($this), $arguments);
+            return $this->call($prototype->$name, $arguments);
         }
 
-        $class = get_class();
-        while ($parent = get_parent_class($class)) {
-            if (method_exists($parent, 'prototype')) {
-                $prototype = $parent::prototype();
-
-                if (is_callable($prototype->$name)) {
-                    return call_user_func_array($prototype->$name->bindTo($this), $arguments);
-                }
+        $parent= get_class();
+        while ($parent = get_parent_class($parent)) {
+            if (method_exists($parent, 'prototype') && is_callable($parent::prototype()->$name)) {
+                return $this->call($parent::prototype()->$name, $arguments);
             }
-
-            $class = $parent;
         }
 
-        throw new \BadMethodCallException;
+        throw new \BadMethodCallException();
     }
 
     /**
+     * Bind and call closure in the context/visibility of the current instance
+     *
+     * @param Closure $closure
+     * @param array $arguments
+     * @return mixed
+     */
+    private function call(Closure $closure, array $arguments = [])
+    {
+        return call_user_func_array($closure->bindTo($this, get_class($this)), $arguments);
+    }
+
+    /**
+     * Return class or prototype properties
+     *
      * @param string $name
      * @return Prototype|mixed
      */
@@ -65,6 +79,8 @@ trait Javascript
     }
 
     /**
+     * Return new or current class prototype
+     *
      * @return Prototype
      */
     public static function prototype()

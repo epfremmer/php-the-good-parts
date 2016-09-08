@@ -143,6 +143,24 @@ class JavascriptTest extends PHPUnit_Framework_TestCase
     }
 
     /** @group javascript */
+    public function testMagicCallInstanceMemberAccess()
+    {
+        $mock = new Mocks\TestPrototypeWithPrivateMembers();
+        $self = $this;
+
+        $mock->prototype()->method = function () use ($self, $mock) {
+            $self->assertEquals(Mocks\TestPrototypeWithPrivateMembers::class, static::class);
+            $self->assertSame($mock, $this->test());
+            $self->assertEquals('prop', $this->property);
+
+            return true;
+        };
+
+        $this->assertInstanceOf(Closure::class, $mock->prototype()->method);
+        $this->assertTrue($mock->method());
+    }
+
+    /** @group javascript */
     public function testMagicCallOnStaticallyDefined()
     {
         $self = $this;

@@ -21,6 +21,8 @@ class Prototype
     private $methods = [];
 
     /**
+     * Set class prototype method
+     *
      * @param string $name
      * @param callable $function
      */
@@ -36,6 +38,8 @@ class Prototype
     }
 
     /**
+     * Get class prototype method
+     *
      * @param string $name
      * @return null|Closure
      */
